@@ -24,4 +24,4 @@ the dropdown list, then select your preferred emulator or simulator.
 1. [football-data.org](https://www.football-data.org/)
 
 ### APK
-Download the APK [here](bt_football.apk)
+Download the APK [here](bt_football.apk).
