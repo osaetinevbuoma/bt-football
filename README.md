@@ -21,7 +21,7 @@ the dropdown list, then select your preferred emulator or simulator.
 5. The application builds and opens up in the running android emulator or iOS simulator.
 
 ### Credits
-1. (football-data.org)[https://www.football-data.org/]
+1. [football-data.org](https://www.football-data.org/)
 
 ### APK
-Download the APK (here)[bt_football.apk]
+Download the APK [here](bt_football.apk)
