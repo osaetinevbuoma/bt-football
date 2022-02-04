@@ -7,13 +7,14 @@ class Team {
   final String? address;
   final String? website;
   final String? email;
-  final String? founded;
+  final String? phone;
+  final int? founded;
   final String? clubColors;
   final String? venue;
-  final int? wins;
-  final int? losses;
-  final int? draws;
-  final List<Squad> squad;
+  int wins = 0;
+  int losses = 0;
+  int draws = 0;
+  final List<Squad>? squad;
 
   Team({
     required this.id,
@@ -22,13 +23,11 @@ class Team {
     this.address,
     this.website,
     this.email,
+    this.phone,
     this.clubColors,
     this.founded,
     this.venue,
-    this.wins,
-    this.losses,
-    this.draws,
-    required this.squad,
+    this.squad,
   });
 
   factory Team.fromJson(Map<String, dynamic> json) {
@@ -39,10 +38,22 @@ class Team {
       address: json['address'] ?? '',
       website: json['website'] ?? '',
       email: json['email'] ?? '',
+      phone: json['phone'] ?? '',
       clubColors: json['clubColors'] ?? '',
-      founded: json['founded'] ?? '',
+      founded: json['founded'] ?? 0,
       venue: json['venue'] ?? '',
-      squad: json['squad'],
+      squad: json['squad'] != null && json['squad'].length > 0
+          ? _convertJsonSquadArray(json['squad'])
+          : const [],
     );
   }
+}
+
+List<Squad> _convertJsonSquadArray(squad) {
+  List<Squad> squadList = [];
+  for (var player in squad) {
+    squadList.add(Squad.fromJson(player));
+  }
+
+  return squadList;
 }

@@ -8,8 +8,8 @@ class Squad {
   factory Squad.fromJson(Map<String, dynamic> json) {
     return Squad(
       id: json['id'],
-      name: json['name'],
-      position: json['position'],
+      name: json['name'] ?? 'Unknown Name',
+      position: json['position'] ?? 'Unknown Position',
     );
   }
 }

@@ -18,7 +18,7 @@ class BTFootballService {
         headers: headers);
     if (response.statusCode == AppConstants.httpStatusOK) {
       List<Match> matches = [];
-      List<Map<String, dynamic>> matchesList = jsonDecode(response.body);
+      var matchesList = jsonDecode(response.body)['matches'];
       for (var match in matchesList) {
         matches.add(Match.fromJson(match));
       }
@@ -51,24 +51,27 @@ class BTFootballService {
         teamMap[match.awayTeam!.id] = match.awayTeam;
       }
 
+      Team homeTeam = teamMap[match.homeTeam!.id];
+      Team awayTeam = teamMap[match.awayTeam!.id];
+
       if (match.score!.winner == "HOME_TEAM") {
-        teamMap[match.homeTeam!.id].wins = teamMap[match.homeTeam!.id].wins + 1;
-        teamMap[match.awayTeam!.id].losses =
-            teamMap[match.awayTeam!.id].losses - 1;
+        homeTeam.wins += 1;
+        awayTeam.losses += 1;
       } else if (match.score!.winner == "AWAY_TEAM") {
-        teamMap[match.homeTeam!.id].losses =
-            teamMap[match.homeTeam!.id].losses + 1;
-        teamMap[match.awayTeam!.id].wins = teamMap[match.awayTeam!.id].wins - 1;
+        homeTeam.losses += 1;
+        awayTeam.wins += 1;
       } else {
-        teamMap[match.homeTeam!.id].draws =
-            teamMap[match.homeTeam!.id].draws + 1;
-        teamMap[match.awayTeam!.id].draws =
-            teamMap[match.awayTeam!.id].draws - 1;
+        homeTeam.draws += 1;
+        awayTeam.draws += 1;
       }
+
+      teamMap[match.homeTeam!.id] = homeTeam;
+      teamMap[match.awayTeam!.id] = awayTeam;
     }
 
     var teams = teamMap.values.toList();
     teams.sort((a, b) => b.wins.compareTo(a.wins));
-    return teams[0];
+
+    return teams.first;
   }
 }

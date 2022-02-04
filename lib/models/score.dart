@@ -9,8 +9,8 @@ class Score {
 
   factory Score.fromJson(Map<String, dynamic> json) {
     return Score(
-      winner: json['winner'],
-      fullTime: json['fullTime'],
+      winner: json['winner'] ?? '',
+      fullTime: json['fullTime'] ?? const {},
     );
   }
 }

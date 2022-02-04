@@ -19,12 +19,3 @@ class FetchMatchesEvent extends BTFootballEvent {
   @override
   List<Object?> get props => [dateFrom, dateTo];
 }
-
-class FetchTeamEvent extends BTFootballEvent {
-  final int id;
-
-  const FetchTeamEvent({required this.id});
-
-  @override
-  List<Object?> get props => [id];
-}

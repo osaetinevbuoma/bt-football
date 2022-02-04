@@ -24,17 +24,24 @@ class BTFootballBloc extends Bloc<BTFootballEvent, BTFootballState> {
       FetchMatchesEvent event, Emitter<BTFootballState> emit) async {
     try {
       emit(ProcessingState());
+
       List<Match> matches = await _btFootballRepository.fetchMatches(
           event.dateFrom, event.dateTo);
       Team teamWithMostWins =
           _btFootballService.determineTeamWithMostWins(matches);
+
       Team teamDetails =
           await _btFootballRepository.fetchTeam(teamWithMostWins.id);
+      teamDetails.wins = teamWithMostWins.wins;
+      teamDetails.losses = teamWithMostWins.losses;
+      teamDetails.draws = teamWithMostWins.draws;
+
       emit(ProcessedState(team: teamDetails));
     } catch (error, stacktrace) {
       if (kDebugMode) {
         print(stacktrace);
       }
+
       emit(ErrorState(message: error.toString()));
     }
   }

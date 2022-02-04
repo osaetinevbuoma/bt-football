@@ -19,10 +19,15 @@ class Match {
   factory Match.fromJson(Map<String, dynamic> json) {
     return Match(
       id: json['id'],
-      utcDate: json['utcDate'],
+      utcDate: _convertJsonDateToDatetime(json['utcDate']),
       score: Score.fromJson(json['score']),
       homeTeam: Team.fromJson(json['homeTeam']),
       awayTeam: Team.fromJson(json['awayTeam']),
     );
   }
+}
+
+DateTime _convertJsonDateToDatetime(String jsonDate) {
+  var jsonDateArray = jsonDate.split('T');
+  return DateTime.parse(jsonDateArray[0]);
 }
